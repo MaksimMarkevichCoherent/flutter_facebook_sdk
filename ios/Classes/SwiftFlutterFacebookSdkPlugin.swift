@@ -38,7 +38,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
     }
     
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
-        
+
         Settings.shared.isAdvertiserTrackingEnabled = false
         let launchOptionsForFacebook = launchOptions as? [UIApplication.LaunchOptionsKey: Any]
         ApplicationDelegate.shared.application(
@@ -104,7 +104,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
     }
     
     func logPurchase(amount:Double, currency:String, parameters: Dictionary<String,Any>){
-        AppEvents.shared.logPurchase(amount, currency: currency, parameters: parameters)
+        AppEvents.shared.logPurchase(amount: amount, currency: currency)
     }
     
     func logSearchEvent(
@@ -140,7 +140,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
             AppEvents.ParameterName.contentType: contentType,
             AppEvents.ParameterName.numItems: NSNumber(value:numItems),
             AppEvents.ParameterName.paymentInfoAvailable: NSNumber(value: paymentInfoAvailable ? 1 : 0),
-            AppEvents.ParameterName.currency.rawValue: currency
+            AppEvents.ParameterName.currency: currency
         ] as [AppEvents.ParameterName : Any]
         
         AppEvents.shared.logEvent(.initiatedCheckout, valueToSum: totalPrice, parameters: parameters)
@@ -291,7 +291,50 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
                 result(true)
                 return
             }
-            
+        case "logRated":
+            AppEvents.shared.logEvent(.rated)
+            result(true)
+            return
+        case "logDonate":
+            AppEvents.shared.logEvent(.donate)
+            result(true)
+            return
+        case "logContact":
+            AppEvents.shared.logEvent(.contact)
+            result(true)
+            return
+        case "logStartTrial":
+            AppEvents.shared.logEvent(.startTrial)
+            result(true)
+            return
+        case "logSpentCredits":
+            AppEvents.shared.logEvent(.spentCredits)
+            result(true)
+            return
+        case "logSubscribe":
+            AppEvents.shared.logEvent(.subscribe)
+            result(true)
+            return
+        case "logPurchased":
+            AppEvents.shared.logEvent(.purchased)
+            result(true)
+            return
+        case "logCustomizeProduct":
+            AppEvents.shared.logEvent(.customizeProduct)
+            result(true)
+            return
+        case "logAchievedLevel":
+            AppEvents.shared.logEvent(.achievedLevel)
+            result(true)
+            return
+        case "logFindLocation":
+            AppEvents.shared.logEvent(.findLocation)
+            result(true)
+            return
+        case "logAddedToCart":
+            AppEvents.shared.logEvent(.addedToCart)
+            result(true)
+            return
         default:
             result(FlutterMethodNotImplemented)
         }
