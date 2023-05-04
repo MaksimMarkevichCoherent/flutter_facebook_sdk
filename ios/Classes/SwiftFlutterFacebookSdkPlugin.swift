@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import FBSDKCoreKit
+import FBAudienceNetwork
 
 let PLATFORM_CHANNEL = "flutter_facebook_sdk/methodChannel"
 let EVENTS_CHANNEL = "flutter_facebook_sdk/eventChannel"
@@ -39,7 +40,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
     
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
         
-        FBSDKCoreKit.Settings.setAdvertiserTrackingEnabled(false)
+        FBAdSettings.setAdvertiserTrackingEnabled(false)
         let launchOptionsForFacebook = launchOptions as? [UIApplication.LaunchOptionsKey: Any]
         ApplicationDelegate.shared.application(
             application,
@@ -277,7 +278,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
             }
             if  let myArgs = args as? [String: Any],
                 let enabled = myArgs["enabled"] as? Bool {
-                FBSDKCoreKit.Settings.setAdvertiserTrackingEnabled(enabled)
+                FBAdSettings.setAdvertiserTrackingEnabled(enabled)
                 result(enabled)
                 return
             }
