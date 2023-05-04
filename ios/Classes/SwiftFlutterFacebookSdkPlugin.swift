@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import FBSDKCoreKit
+import FBAudienceNetwork
 
 let PLATFORM_CHANNEL = "flutter_facebook_sdk/methodChannel"
 let EVENTS_CHANNEL = "flutter_facebook_sdk/eventChannel"
@@ -175,7 +176,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "initializeSDK":
-            ApplicationDelegate.initializeSDK(nil)
+            ApplicationDelegate.shared.initializeSDK()
             result(nil)
             return
         case "getPlatformVersion":
