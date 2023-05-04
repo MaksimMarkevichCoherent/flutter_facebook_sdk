@@ -1,7 +1,6 @@
 import Flutter
 import UIKit
 import FBSDKCoreKit
-import FBAudienceNetwork
 
 let PLATFORM_CHANNEL = "flutter_facebook_sdk/methodChannel"
 let EVENTS_CHANNEL = "flutter_facebook_sdk/eventChannel"
