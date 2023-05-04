@@ -76,10 +76,10 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
                    price: Double,
                    type: String){
         let parameters = [
-            AppEvents.ParameterName.content.rawValue: contentData,
-            AppEvents.ParameterName.contentID.rawValue: contentId,
-            AppEvents.ParameterName.contentType.rawValue: contentType,
-            AppEvents.ParameterName.currency.rawValue: currency
+            AppEvents.ParameterName.content: contentData,
+            AppEvents.ParameterName.contentID: contentId,
+            AppEvents.ParameterName.contentType: contentType,
+            AppEvents.ParameterName.currency: currency
         ]
         switch(type){
         case "addToWishlist":
@@ -115,12 +115,12 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
         success: Bool
     ) {
         let parameters = [
-            AppEvents.ParameterName.contentType.rawValue: contentType,
-            AppEvents.ParameterName.content.rawValue: contentData,
-            AppEvents.ParameterName.contentID.rawValue: contentId,
-            AppEvents.ParameterName.searchString.rawValue: searchString,
-            AppEvents.ParameterName.success.rawValue: NSNumber(value: success ? 1 : 0)
-        ] as [String : Any]
+            AppEvents.ParameterName.contentType: contentType,
+            AppEvents.ParameterName.content: contentData,
+            AppEvents.ParameterName.contentID: contentId,
+            AppEvents.ParameterName.searchString: searchString,
+            AppEvents.ParameterName.success: NSNumber(value: success ? 1 : 0)
+        ] as [AppEvents.ParameterName : Any]
         
         AppEvents.shared.logEvent(.searched, parameters: parameters)
     }
@@ -135,13 +135,13 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
         totalPrice: Double
     ) {
         let parameters = [
-            AppEvents.ParameterName.content.rawValue: contentData,
-            AppEvents.ParameterName.contentID.rawValue: contentId,
-            AppEvents.ParameterName.contentType.rawValue: contentType,
-            AppEvents.ParameterName.numItems.rawValue: NSNumber(value:numItems),
-            AppEvents.ParameterName.paymentInfoAvailable.rawValue: NSNumber(value: paymentInfoAvailable ? 1 : 0),
+            AppEvents.ParameterName.content: contentData,
+            AppEvents.ParameterName.contentID: contentId,
+            AppEvents.ParameterName.contentType: contentType,
+            AppEvents.ParameterName.numItems: NSNumber(value:numItems),
+            AppEvents.ParameterName.paymentInfoAvailable: NSNumber(value: paymentInfoAvailable ? 1 : 0),
             AppEvents.ParameterName.currency.rawValue: currency
-        ] as [String : Any]
+        ] as [AppEvents.ParameterName : Any]
         
         AppEvents.shared.logEvent(.initiatedCheckout, valueToSum: totalPrice, parameters: parameters)
     }
@@ -149,7 +149,7 @@ public class SwiftFlutterFacebookSdkPlugin: NSObject, FlutterPlugin, FlutterStre
     func logGenericEvent(args: Dictionary<String, Any>){
         let eventName = args["eventName"] as! String
         let valueToSum = args["valueToSum"] as? Double
-        let parameters = args["parameters"] as? Dictionary<String, Any>
+        let parameters = args["parameters"] as? Dictionary<AppEvents.ParameterName, Any>
         if(valueToSum != nil && parameters != nil){
             AppEvents.shared.logEvent(AppEvents.Name(eventName), valueToSum: valueToSum!, parameters: parameters!)
         }else if(parameters != nil){
