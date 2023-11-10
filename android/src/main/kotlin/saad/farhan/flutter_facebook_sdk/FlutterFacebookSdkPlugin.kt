@@ -38,9 +38,9 @@ class FlutterFacebookSdkPlugin : FlutterPlugin, MethodCallHandler, StreamHandler
     private lateinit var methodChannel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var logger: AppEventsLogger
-    private lateinit var anonymousId: String
 
-    private var deepLinkUrl: String = "solfy app"
+
+    private var deepLinkUrl: String = "Saad Farhan"
     private var PLATFORM_CHANNEL: String = "flutter_facebook_sdk/methodChannel"
     private var EVENTS_CHANNEL: String = "flutter_facebook_sdk/eventChannel"
     private var queuedLinks: List<String> = emptyList()
@@ -62,8 +62,6 @@ class FlutterFacebookSdkPlugin : FlutterPlugin, MethodCallHandler, StreamHandler
         eventChannel.setStreamHandler(this)
 
         context = flutterPluginBinding.applicationContext
-
-        anonymousId = AppEventsLogger.getAnonymousAppDeviceGUID(flutterPluginBinding.applicationContext)
     }
 
 
@@ -148,7 +146,6 @@ class FlutterFacebookSdkPlugin : FlutterPlugin, MethodCallHandler, StreamHandler
             "logFindLocation" -> {
                 logger.logEvent(AppEventsConstants.EVENT_NAME_FIND_LOCATION)
             }
-            "getAnonymousId" -> handleGetAnonymousId(call, result)
             else -> {
                 result.notImplemented()
             }
@@ -219,9 +216,9 @@ class FlutterFacebookSdkPlugin : FlutterPlugin, MethodCallHandler, StreamHandler
     private fun initFbSdk() {
         FacebookSdk.setAutoInitEnabled(true)
         FacebookSdk.fullyInitialize()
-        logger = AppEventsLogger.newLogger(context)
+        logger = AppEventsLogger.newLogger(context!!)
 
-        val targetUri = AppLinks.getTargetUrlFromInboundIntent(context, activityPluginBinding!!.activity.intent)
+        val targetUri = AppLinks.getTargetUrlFromInboundIntent(context!!, activityPluginBinding!!.activity.intent)
         AppLinkData.fetchDeferredAppLinkData(context, object : AppLinkData.CompletionHandler {
             override fun onDeferredAppLinkDataFetched(appLinkData: AppLinkData?) {
 
